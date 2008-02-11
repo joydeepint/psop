@@ -4,19 +4,24 @@
 __Only tested on Linux!__
 
 =Linux=
+*Step 1*
+
 Open terminal and go to your psop directory:
 {{{
 cd /var/www/psop/
 }}}
 
-First, correct the permissions to ./psop file:
+*Step 2 (__Only First run__)*
+
+First, correct the permissions to ./psop file and cache/ dir:
 {{{
-chmod +x ./psop.php
+chmod +x ./psop.php;
+chmod 777 ./cache/;
 }}}
 
-{{{
-./psop
-}}}
+*Step 3*
 
-=Windows=
-No guide yet.
+Then run Psop on your project (Psop will not overwrite your project, processed files can be accessed in ./cache/):
+{{{
+./psop --dir /var/www/myproject/
+}}}
