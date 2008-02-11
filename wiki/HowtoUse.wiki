@@ -1,0 +1,22 @@
+#summary How to use Psop.
+#labels Featured,Phase-Implementation
+
+__Only tested on Linux!__
+
+=Linux=
+Open terminal and go to your psop directory:
+{{{
+cd /var/www/psop/
+}}}
+
+First, correct the permissions to ./psop file:
+{{{
+chmod +x ./psop.php
+}}}
+
+{{{
+./psop
+}}}
+
+=Windows=
+No guide yet.
