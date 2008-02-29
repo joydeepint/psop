@@ -103,17 +103,25 @@ require_once 'Zend/Debug.php';
  */
 require_once 'Zend/Console/Getopt.php';
 
-echo 'Psop version 1' . "\n";
+echo 'Psop 1.0 (http://code.google.com/p/psop/)' . "\r\n\r\n";
+
+$options = array();
 
 // set opts
 try {
     $opts = new Zend_Console_Getopt(array(
-    'dir|d=s' => 'Location of project'
+    'dir|d=s'   => 'Location of project',
+    'v|debug'         => 'Show debug information',
     ), null, array('ruleMode' => Zend_Console_Getopt::MODE_ZEND));
 
     $opts->parse();
 
     $dir = $opts->dir;
+    $debug = $opts->v;
+
+    if ($debug !== null) {
+        $options['debug'] = true;
+    }
     
     if ($dir == '' OR $dir === null) {
         throw new Zend_Console_Getopt_Exception('Error: Provide a project location', $opts->getUsageMessage());
@@ -130,7 +138,7 @@ try {
 require_once 'Psop/Psop.php';
 
 try {
-    $psop = new Psop_Psop($dir);
+    $psop = new Psop_Psop($dir, $options);
 } catch (Zend_Exception $e) {
     echo $e->getMessage() . "\n";
     exit;
