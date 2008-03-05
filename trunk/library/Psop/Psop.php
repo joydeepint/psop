@@ -96,20 +96,25 @@ class Psop_Psop
         // check config for extensions
         if (!isset($this->_config['extensions']) || !is_array($this->_config['extensions'])) {
             /**
-             * @see Psop_Extension_Php
+             * @see Psop_Extension_Css
              */
             require_once 'Psop/Extension/Css.php';
+            /**
+             * @see Psop_Extension_Js
+             */
+            require_once 'Psop/Extension/Js.php';
             /**
              * @see Psop_Extension_Php
              */
             require_once 'Psop/Extension/Php.php';
             /**
-             * @see Psop_Extension_Php
+             * @see Psop_Extension_Xml
              */
             require_once 'Psop/Extension/Xml.php';
                         // add default extensions
             $this->_config['extensions'] = array(
             'css'       => new Psop_Psop_Extension_Css(),
+            'js'        => new Psop_Psop_Extension_Js(),
             'php'       => new Psop_Psop_Extension_Php(),
             'xml'       => new Psop_Psop_Extension_Xml(),
             );
@@ -190,6 +195,9 @@ class Psop_Psop
         $size  = $sizeOptimized = filesize($file);
 
         $pathinfo = pathinfo($file);
+        if (!isset($pathinfo['extension'])) {
+            $pathinfo['extension'] = '';
+        }
 
         if (isset($this->_config['extensions'][$pathinfo['extension']])) {
             $this->_filesOptimized++;
