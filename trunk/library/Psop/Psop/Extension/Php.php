@@ -105,12 +105,12 @@ class Psop_Psop_Extension_Php extends Psop_Extension_Abstract
                         #$whitespace = true;
                         $newContents .= $text . ' ';
                         break;
-                    case T_LOGICAL_AND:
+                    /*case T_LOGICAL_AND:
                         $newContents .= '&&';
                         break;
                     case T_LOGICAL_OR:
                         $newContents .= '||';
-                        break;
+                        break;*/
                     case T_END_HEREDOC:
                         $newContents .= $text . "\n";
                         break;
