@@ -30,6 +30,9 @@ require_once 'Psop/Psop/Exception.php';
  */
 require_once 'Psop/Extension/Abstract.php';
 
+// set memory limit
+ini_set('memory_limit', '32M');
+
 /**
  * @category   Psop
  * @package    Psop_Psop
