@@ -22,6 +22,10 @@
  */
 require_once 'Zend/Cache.php';
 /**
+ * @see Psop_Psop_Exception
+ */
+require_once 'Psop/Psop/Exception.php';
+/**
  * @see Psop_Extension_Abstract
  */
 require_once 'Psop/Extension/Abstract.php';
@@ -206,7 +210,12 @@ class Psop_Psop
             $this->_size += $size;
 
             // optimize
-            $newContents = $this->_config['extensions'][$pathinfo['extension']]->parse($contents);
+            try {
+                $newContents = $this->_config['extensions'][$pathinfo['extension']]->parse($contents);
+            } catch (Psop_Psop_Exception $e) {
+                // use old content, error occurred
+                $newContents = $contents;
+            }
 
             $cacheFile = $this->_cacheDir . '/' . substr($file, strlen($this->_dir));
             $newHandle = fopen ($cacheFile, 'w');
