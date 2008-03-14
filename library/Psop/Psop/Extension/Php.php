@@ -102,6 +102,7 @@ class Psop_Psop_Extension_Php extends Psop_Extension_Abstract
                     case T_INCLUDE_ONCE:
                     case T_CLONE:
                     case T_ECHO:
+                    case T_VAR:
                         #$whitespace = true;
                         $newContents .= $text . ' ';
                         break;
@@ -111,6 +112,10 @@ class Psop_Psop_Extension_Php extends Psop_Extension_Abstract
                     case T_LOGICAL_OR:
                         $newContents .= '||';
                         break;*/
+                    case T_LOGICAL_OR:
+                    case T_LOGICAL_AND:
+                        $newContents .= $text . ' ';
+                        break;
                     case T_END_HEREDOC:
                         $newContents .= $text . "\n";
                         break;
