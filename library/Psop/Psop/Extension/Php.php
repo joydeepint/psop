@@ -72,6 +72,9 @@ class Psop_Psop_Extension_Php extends Psop_Extension_Abstract
                             $newContents .= $text;
                         }
                         break;
+                    case T_CLOSE_TAG:
+                        $newContents .= ' ' . $text;
+                        break;
                     case T_AS:
                     case T_INSTANCEOF:
                         $newContents .= ' ' . $text . ' ';
