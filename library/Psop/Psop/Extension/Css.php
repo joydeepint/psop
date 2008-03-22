@@ -100,36 +100,20 @@ class Psop_Psop_Extension_Css extends Psop_Extension_Abstract
                                         $borderValueB = $this->cssSelectorBufferValues[$borderB];
                                     }
                                     
-                                    if ($borderValueL == $borderValueR && $borderValueL == $borderValueT && $borderValueB == $borderValueL) {
+                                    if ($borderValueL == $borderValueR && $borderValueL == $borderValueT && $borderValueB == $borderValueL && $borderValueB != '') {
                                         $newContents .= 'border:' . $this->cssSelectorBufferValues[$key];
                                         $had[] = 'border';
-                                    }
-                                }
-                            } elseif (substr($prop, 0, 6) == 'margin') {
-                                if (!in_array('margin', $had)) {
-                                    $borderL = array_search('margin-left', $this->cssSelectorBuffer);
-                                    $borderR = array_search('margin-right', $this->cssSelectorBuffer);
-                                    $borderT = array_search('margin-top', $this->cssSelectorBuffer);
-                                    $borderB = array_search('margin-bottom', $this->cssSelectorBuffer);
-                                    if ($borderL !== false && $borderL !== null) {
-                                        $borderValueL = $this->cssSelectorBufferValues[$borderL];
                                     } else {
-                                        $borderValueL = '0';
+                                        $newContents .= $prop . ':' . $this->cssSelectorBufferValues[$key];
+                                        if (count($this->cssSelectorBuffer) != $key+1) {
+                                            $newContents .= ';';
+                                        }
+                                        $had[] = 'border';
                                     }
-                                    if ($borderR !== false && $borderR !== null) {
-                                        $borderValueR = $this->cssSelectorBufferValues[$borderR];
-                                    } else {
-                                        $borderValueR = '0';
-                                    }
-                                    if ($borderT !== false && $borderT != null) {
-                                        $borderValueT = $this->cssSelectorBufferValues[$borderT];
-                                    } else {
-                                        $borderValueT = '0';
-                                    }
-                                    if ($borderB !== false && $borderB !== null) {
-                                        $borderValueB = $this->cssSelectorBufferValues[$borderB];
-                                    } else {
-                                        $borderValueB = '0';
+                                } else {
+                                    $newContents .= $prop . ':' . $this->cssSelectorBufferValues[$key];
+                                    if (count($this->cssSelectorBuffer) != $key+1) {
+                                        $newContents .= ';';
                                     }
                                 }
                             } else {
