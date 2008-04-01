@@ -53,10 +53,13 @@ class Psop_Psop_Extension_Xml extends Psop_Extension_Abstract
         $this->xmlParser = xml_parser_create();
         
         xml_set_object($this->xmlParser, $this);
+        xml_parser_set_option($this->xmlParser, XML_OPTION_CASE_FOLDING, false);
         xml_set_element_handler($this->xmlParser, "xmlStartTag", "xmlEndTag");
         xml_set_character_data_handler($this->xmlParser, "xmlContents");
         
         xml_parse($this->xmlParser, $contents);
+        
+        unset($contents);
         
         return $this->xmlNewContents;
     }
@@ -80,10 +83,10 @@ class Psop_Psop_Extension_Xml extends Psop_Extension_Abstract
         
         $newAttributes = '';
         foreach ($attributes as $key => $value) {
-            $newAttributes .= ' ' . strtolower($key) . '="' . $value . '"';
+            $newAttributes .= ' ' . /*strtolower($key)*/ $key . '="' . $value . '"';
         }
         
-        $this->xmlNewContents .= '<' . strtolower($tag) . '' . $newAttributes . '>';
+        $this->xmlNewContents .= '<' . /*strtolower($tag)*/ $tag . '' . $newAttributes . '>';
         
         $this->xmlInTag = true;
     }
@@ -103,6 +106,6 @@ class Psop_Psop_Extension_Xml extends Psop_Extension_Abstract
         $this->pointer =& $this->pointer['_parent'];
         unset($this->pointer['childNodes'][$idx]['_idx']);
         
-        $this->xmlNewContents .= '</' . strtolower($tag) . '>';
+        $this->xmlNewContents .= '</' . /*strtolower($tag)*/ $tag . '>';
     }
 }

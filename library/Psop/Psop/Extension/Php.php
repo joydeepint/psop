@@ -41,15 +41,18 @@ class Psop_Psop_Extension_Php extends Psop_Extension_Abstract
     /**
 	 * Parse content of file
 	 * 
-	 * @param string $input
+	 * @param string $contents
 	 * @return string
 	 */
     public function parse($contents)
     {
-        // tokenize with the built-in php tokenizer
+        /* // tokenize with the built-in php tokenizer */
+        
         $tokens = token_get_all($contents);
+        
         $newContents = '';
-
+        unset($contents);
+        
         $whitespace = false;
 
         foreach ($tokens as $token) {
@@ -106,15 +109,16 @@ class Psop_Psop_Extension_Php extends Psop_Extension_Abstract
                     case T_CLONE:
                     case T_ECHO:
                     case T_VAR:
+                    case T_BREAK:
                         #$whitespace = true;
                         $newContents .= $text . ' ';
                         break;
-                    /*case T_LOGICAL_AND:
+                    /* case T_LOGICAL_AND:
                         $newContents .= '&&';
                         break;
                     case T_LOGICAL_OR:
                         $newContents .= '||';
-                        break;*/
+                        break; */
                     case T_LOGICAL_OR:
                     case T_LOGICAL_AND:
                         $newContents .= $text . ' ';

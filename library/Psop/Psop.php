@@ -31,7 +31,7 @@ require_once 'Psop/Psop/Exception.php';
 require_once 'Psop/Extension/Abstract.php';
 
 // set memory limit
-ini_set('memory_limit', '32M');
+ini_set('memory_limit', '1024M');
 
 /**
  * @category   Psop
@@ -115,6 +115,10 @@ class Psop_Psop
              */
             require_once 'Psop/Extension/Php.php';
             /**
+             * @see Psop_Extension_Phtml
+             */
+            require_once 'Psop/Extension/Phtml.php';
+            /**
              * @see Psop_Extension_Xml
              */
             require_once 'Psop/Extension/Xml.php';
@@ -123,6 +127,7 @@ class Psop_Psop
             'css'       => new Psop_Psop_Extension_Css(),
             'js'        => new Psop_Psop_Extension_Js(),
             'php'       => new Psop_Psop_Extension_Php(),
+            'phtml'       => new Psop_Psop_Extension_Phtml(),
             'xml'       => new Psop_Psop_Extension_Xml(),
             );
         } else {
@@ -195,6 +200,8 @@ class Psop_Psop
         $handle = @fopen($file, 'r');
 
         if (!$handle) {
+            return false;
+            
             throw new Zend_Exception('Could not open \'' . $file . '\'');
         }
 
